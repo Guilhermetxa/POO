@@ -5,45 +5,44 @@ import java.util.List;
 
 public class Municipio {
 
-    
-    private List<Imóvel> imóveis = new ArrayList<>();
-    
+    private List<Imovel> imoveis = new ArrayList<>(); // Lista para armazenar os imóveis
 
-    public List<Imóvel> getImóveis() {
-        return imóveis;
+    // Método para obter a lista de imóveis
+    public List<Imovel> getImoveis() {
+        return imoveis;
     }
 
-    public void cadastrarImovel(Imóvel i) {
-
-        imóveis.add(i);
-
+    // Método para cadastrar um novo imóvel na lista
+    public void cadastrarImovel(Imovel imovel) {
+        imoveis.add(imovel);
     }
-    
-    public void calcularMulta(int m) {
-        
-        
 
-   Imóvel ir =  imóveis.get(m);
- 
- 
+    // Método para calcular a multa com base no índice do imóvel na lista
+    public double calcularMulta(int indice) {
+        Imovel imovel = imoveis.get(indice); // Obtém o imóvel com base no índice
+        return calcularMulta(imovel); // Chama o método de cálculo de multa sobrecarregado
+    }
+
+    // Método para calcular a multa com base em um objeto Imovel
+    public double calcularMulta(Imovel imovel) {
         double multa = 0;
 
-        if (ir.mesesAtraso >= 0 && ir.mesesAtraso <= 5) {
-            multa = (ir.mesesAtraso * 0.01);
-        } else if (ir.mesesAtraso >= 6 && ir.mesesAtraso <= 8) {
-            multa = ir.mesesAtraso * 0.023;
-        } else if (ir.mesesAtraso >= 9 && ir.mesesAtraso <= 10) {
-            multa = ir.mesesAtraso * 0.03;
-        } else if (ir.mesesAtraso >= 11 && ir.mesesAtraso <= 12) {
-            multa = ir.mesesAtraso * 0.054;
-        } else if (ir.mesesAtraso > 12) {
-            multa = ir.mesesAtraso * 0.1;
+        // Calcula a multa com base nos meses de atraso
+        int mesesAtraso = imovel.getMesesAtraso();
+        if (mesesAtraso >= 0 && mesesAtraso <= 5) {
+            multa = imovel.getImposto() * 0.01; // 1% do valor do imposto
+        } else if (mesesAtraso >= 6 && mesesAtraso <= 8) {
+            multa = imovel.getImposto() * 0.023; // 2.3% do valor do imposto
+        } else if (mesesAtraso >= 9 && mesesAtraso <= 10) {
+            multa = imovel.getImposto() * 0.03; // 3% do valor do imposto
+        } else if (mesesAtraso >= 11 && mesesAtraso <= 12) {
+            multa = imovel.getImposto() * 0.054; // 5.4% do valor do imposto
+        } else if (mesesAtraso > 12) {
+            multa = imovel.getImposto() * 0.1; // 10% do valor do imposto
         } else {
             InOut.exibirMensagem("Número de meses inválido.");
-            return;
         }
 
-             InOut.exibirMensagem("O valor da multa é: R$" + multa);
-
+        return multa;
     }
 }
